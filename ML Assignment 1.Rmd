@@ -1,0 +1,271 @@
+---
+title: "ML lab 1 (R)"
+author: "Mithesh Ramachandran (J002), B.Tech Data Science 3rd year"
+date: "07/07/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction to Statistics Package Exercises
+Objectives:
+
+1.	Exploring Variables in a Dataset
+2.	Learn how to open and examine a dataset.
+3.	Practice classifying variables by their type: quantitative or categorical.
+4.	Learn how to handle categorical variables whose values are numerically coded.
+
+Link to experiment: https://upscfever.com/upsc-fever/en/data/en-exercises-1.html
+
+
+Submission:
+
+To be submitted on or before 09/07/20.
+
+1.	Create github repo and Upload results to repo and paste repo link in common excel sheet
+2.	Link to excel- https://docs.google.com/spreadsheets/d/1G0HMQkWOuAb6mk89BRauMMhhjga0OaXjTbUC-IwSu8M/edit?usp=sharing
+
+### Github Repository
+
+User ID: 259mit
+
+https://github.com/259mit/ML 
+
+### Statistics Package Exercise: Exploring Variables in a Dataset
+
+#### Loading Dataset for questions 1 and 2: depression.csv
+
+#### 1
+```{r}
+depression<-read.csv("/Users/home/Downloads/OneDrive_1_07-07-2020/depression.csv")
+library(knitr)
+kable(head(depression), caption = "first five rows of 'depression' dataset")
+```
+
+#### Question 1:	What are the categorical variables in this dataset?
+
+---
+
+From the above image, we can see that 'Hospt' , 'Treat' , 'Outcome' and 'Gender' 
+are categorical variables, i.e have outcomes in levels.
+
+1) Hostp because the numbers represent codes, which are used to identify individual hospitals and place them into categories.
+
+2) Treat because the treatment received by the patients is in the form of categories (Lithium, Imipramine, or Placebo)
+
+3) Outcome since recurrence is in the form of two categories (Recurrence or No Recurrence)
+
+4) Gender because the numbers represent two distinct categories: Female and Male.
+
+---
+
+#### Question 2:	What are the quantitative variables in this dataset?
+
+---
+
+From the above image, we can see that  'Time' , 'AcuteT' and 'Age' 
+are quantitative variables, i.e have outcomes in datatype int or numeric (continous)
+
+1) Time since it can take on multiple numerical values, which have arithmetic meaning (i.e., it makes sense to add, subtract, multiply, divide, or compare the magnitude of such values)
+
+2) Age since it can take on multiple numerical values, which represent a characteristic of the patient
+
+3) AcuteT because it can take on multiple numerical values to represent a characteristic of the patient.
+
+---
+
+### Statistics Package Exercise 2 : Tallying Data and Creating Pie Charts
+
+#### Loading Dataset for question 3: friends.csv
+
+```{r}
+friends<-read.csv("/Users/home/Downloads/OneDrive_1_07-07-2020/friends.csv")
+kable(head(friends), caption = "first five rows of 'friends' dataset")
+```
+
+####  2
+
+```{r}
+# Identifying target variable:
+names(friends)
+```
+```{r}
+#Creating a pie (proportion) chart
+tf<-table(friends$Friends)
+#Displaying the proportion
+tfp<-prop.table(tf)
+head(tfp)
+#Displaying proportion as percentage
+ptfp<-tfp*100
+head(ptfp)
+#plot a pie chart
+pie(tf)
+```
+
+#### Question 3:	Describe the distribution of the variable "friends" in dataset - Survey that asked 1,200 U.S. college students about their body perception
+
+---
+
+The students are NOT divided equally among the three categories. About 50% of the students find it as easy to make friends with the opposite sex as with the same sex. Among the remaining 50% of the students, the majority (36.2%) find it easier to make friends with people of the opposite sex, and the remainder (13.7%) find it easier to make friends with people of their own sex.
+
+---
+
+### Statistics Package Exercise 3: Creating and Describing Histograms
+
+
+#### Loading Dataset for question 4 to 6: actor_age.csv
+
+```{r}
+actors<-read.csv("/Users/home/Downloads/OneDrive_1_07-07-2020/actor_age.csv")
+kable(head(actors), caption = "first five rows of 'actor_age' dataset")
+```
+
+####  3
+```{r}
+# create histogram of the actor's age
+hist(actors$Age, xlab="Age of Best Actor Oscar Winners (1970-2013)", ylab="Number of Actors", main="Best Actor Oscar Winners Ages")
+```
+
+#### Question 4:	Describe the distribution of the ages of the Best Actor Oscar winners. Be sure to address shape, center, spread and outliers (Dataset - Best Actor Oscar winners (1970-2013))
+
+---
+
+1. Shape: the distribution is skewed right. This means that most actors receive the best acting Oscar at a relatively younger age (before age 48), and fewer at an older age.
+
+2. Center: The distribution seems to be centered at around 42-43. This means that about half the actors are 42 or younger when they receive the Oscar, and about half are older.
+
+3. Spread: The age distribution ranges from about 30 to about 75. The entire dataset is covered, then, by a range of 45 years. It should be noted, though, that there is one high outlier at around age 75, and the rest of the data ranges only from 30 to 60.
+
+4. Outliers: As mentioned above, there is one high outlier at around age 75.
+
+---
+
+#### 4
+
+```{r}
+#For mean, median, 1st and 3rd quartile, min and max
+summary(actors$Age)
+#for IQR 
+IQR(actors$Age)
+```
+
+#### Question 5:	Getting information from the output: 
+#### A. How many observations are in this data set? 
+#### B. What is the mean age of the actors who won the Oscar? 
+#### C. What is the five-number summary of the distribution? (Dataset - Best Actor Oscar winners (1970-2013))
+
+---
+
+A. There are n = 44 observations in the data set (representing the age of the Best Actor Oscar winners of the 44 years from 1970 through 2013).
+
+B. Mean = 44.98
+
+C. The five-number summary is: min = 29, Q1 = 38, M = 43.5, Q3 = 50.5, Max = 76
+
+---
+
+
+#### Question 6:	Get information from the five-number summary:
+#### A. Half of the actors won the Oscar before what age? 
+#### B. What is the range covered by all the actors' ages?
+#### C. What is the range covered by the middle 50% of the ages? (Dataset - Best Actor Oscar winners (1970-2013))
+
+---
+
+ A. Half the actors won the Oscar before age 43.5 (the median).
+ 
+ B. The range covered by all the ages is: Range = Max - min = 76 - 29 = 47.
+ 
+ C. The range covered by the middle 50% of the ages is: IQR = Q3 - Q1 = 50.5 - 38 = 12.5
+ 
+---
+
+### Statistics Package Exercise 4: Creating Side-by-Side Boxplots
+
+#### Loading Dataset: grad_data.csv
+```{r}
+grad<-read.csv("/Users/home/Downloads/OneDrive_1_07-07-2020/grad_data.csv")
+kable(head(grad), caption = "first five rows of 'grad_data' dataset")
+```
+
+####  5
+```{r}
+# summary table of grad_data
+summary(grad)
+
+#boxplot of grad_data
+boxplot(grad[,2:6], col = c("red", "blue", "green", "orange", "purple"), xlab="Colleges",ylab ="Graduation Rates", main="Comparison of Graduation Rates")
+legend(95,1, legend = c("College A","College B","College C", "College D", "College E", "College F"))
+
+#Horizontal
+#boxplot of grad_data
+boxplot(grad[,2:6], col = c("red", "blue", "green", "orange", "purple"), xlab="Colleges",ylab ="Graduation Rates", main="Comparison of Graduation Rates", horizontal = TRUE)
+legend(95,1, legend = c("College A","College B","College C", "College D", "College E", "College F"))
+```
+
+### Statistics Package Exercise 5:Calculating the Standard Deviation
+
+#### Loading Dataset for question 7 and 8: ratings.csv
+
+---
+
+---
+
+```{r}
+ratings<-read.csv("/Users/home/Downloads/OneDrive_1_07-07-2020/ratings.csv")
+kable(head(ratings), caption = "first five rows of 'ratings' dataset")
+```
+
+
+#### 6
+```{r}
+#find standard deviation of all columns in dataframe 'ratings'
+kable(as.table(sapply(ratings[,2:4], sd)), col.names = c("Variable", "Std. dev"))
+```
+
+#### Question 7:	What are the standard deviations of the three rating distributions? Was your intuition correct? (Dataset - 27 students in the class were asked to rate the instructor on a number scale of 1 to 9)
+
+---
+
+Here are the three standard deviations: 
+
+Class I: 1.569 
+
+Class II: 4.000
+
+Class III: 2.631
+
+Note that through this example, we also learn that the number of distinct values represented in a histogram does not necessarily indicate greater variability.
+
+---
+
+#### Question 8:	Assume that the average rating in each of the three classes is 5 (which should be visually reasonably clear from the histograms), and recall the interpretation of the SD as a "typical" or "average" distance between the data points and their mean. Judging from the table and the histograms, which class would have the largest standard deviation, and which one would have the smallest standard deviation? Explain your reasoning (Dataset - 27 students in the class were asked to rate the instructor on a number scale of 1 to 9)
+
+---
+
+In class I, almost all the ratings are 5, which is also the mean. The average distance between the observations and the mean, then, would be very small. 
+
+In class II most of the observations are far from the mean (at 1 or 9). The average distance between the observations and the mean in this case would be larger. 
+
+Class III is the case where some of the observations are close to the mean, and some are far, so the average distance between the observations and the mean would be somewhere in between class I and II.
+
+
+Ranking of Std. Dev from smallest to largest -  
+Class I < Class III < Class II
+
+---
+
+
+---
+
+End of assignment.
+Return to top.
+
+By Mithesh R, J002.
+ML
+
+
+---
+
